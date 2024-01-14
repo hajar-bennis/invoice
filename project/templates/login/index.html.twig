@@ -5,20 +5,52 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger text-center">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg bg-light">
+                    <div class="card-body p-5" style="transition: background-color 0.3s;">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
+                        <form action="{{ path('app_login') }}" method="post" id="loginForm">
+                            <div class="mb-3">
+                                <label for="username" class="form-label fs-5">Email</label>
+                                <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control form-control-lg">
+                            </div>
 
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"> #}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <div class="mb-3">
+                                <label for="password" class="form-label fs-5">Mot de passe</label>
+                                <input type="password" id="password" name="_password" class="form-control form-control-lg">
+                            </div>
 
-        <button type="submit">login</button>
-    </form>
+                            {# If you want to control the URL the user is redirected to on success
+                            <input type="hidden" name="_target_path" value="/account"> #}
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-dark btn-lg w-100" style="background-color: #0056b3;" onclick="changeFormColor()">Se connecter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeFormColor() {
+            document.getElementById("loginForm").style.backgroundColor = "#ecf0f1"; // Changer la couleur du formulaire
+        }
+    </script>
 {% endblock %}
+
+
+
+
+
+
+
